@@ -18,7 +18,7 @@ public class TestInitData {
     @Autowired
     @Lazy
     private TestInitData self;
-    private final QuestiongRepository questiongRepository;
+    private final QuestionRepository questionRepository;
 
     @Bean
     public ApplicationRunner testInitDataApplicationRunner() {
@@ -29,18 +29,18 @@ public class TestInitData {
 
     @Transactional
     void work1() {
-        if (questiongRepository.count() > 0) return;
+        if (questionRepository.count() > 0) return;
 
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setCreateDate(LocalDateTime.now());
-        questiongRepository.save(q1);
+        questionRepository.save(q1);
 
         Question q2 = new Question();
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
-        questiongRepository.save(q2);
+        questionRepository.save(q2);
     }
 }
