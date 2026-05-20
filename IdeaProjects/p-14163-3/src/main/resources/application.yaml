@@ -1,3 +1,8 @@
 spring:
+  output:
+    ansi:
+      enabled: always
   application:
-    name: p-14163-3
+    name: Sbb
+  profiles:
+    active: dev
