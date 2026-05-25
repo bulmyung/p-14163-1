@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +57,19 @@ class QuestionRepositoryTest {
 
         Question question = questions.get(0);
         assertThat(question.getSubject()).isEqualTo("sbb가 무엇인가요?");
+    }
+
+    @Test
+    @DisplayName("수정")
+    @Transactional
+    void t6() {
+        Question question = questionRepository.findById(1).get();
+        assertThat(question).isNotNull();
+
+        question.setSubject("수정된 제목");
+        questionRepository.save(question);
+
+        Question foundQuestion = questionRepository.findBySubject("수정된 제목").get();
+        assertThat(foundQuestion).isNotNull();
     }
 }
