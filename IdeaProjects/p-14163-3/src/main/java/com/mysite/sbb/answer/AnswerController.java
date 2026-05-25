@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AnswerController {
     private final QuestionService questionService;
 
-    @PostMapping("create/{id}")
+    @PostMapping("/create/{id}")
     @Transactional
     public String createAnswer(
             @PathVariable Integer id,
