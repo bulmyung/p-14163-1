@@ -7,10 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.desktop.QuitStrategy;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -116,5 +118,27 @@ class QuestionRepositoryTest {
         int afterCount = question.getAnswers().size();
 
         assertThat(afterCount).isEqualTo(beforeCount + 1);
+    }
+
+    @Test
+    @DisplayName("답변 조회")
+    @Transactional
+    void t10() {
+        Answer answer = answerRepository.findById(1).get();
+
+        assertThat(answer.getId()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("답변 조회 by oneToMany")
+    @Transactional
+    void t11() {
+        Question question = questionRepository.findById(2).get();
+
+        List<Answer> answers = question.getAnswers();
+        assertThat(answers).hasSize(1);
+
+        Answer answer = answers.get(0);
+        assertThat(answer.getContent()).isEqualTo("네 자동으로 생성됩니다.");
     }
 }

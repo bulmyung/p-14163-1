@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @Entity
 @Setter
 @Getter
@@ -24,7 +26,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", fetch = EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
 
     public Answer addAnswer(String content) {
@@ -33,7 +35,7 @@ public class Question {
         answer.setQuestion(this);
         answer.setCreateDate(LocalDateTime.now());
         answers.add(answer);
-        
+
         return answer;
     }
 }
